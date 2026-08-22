@@ -1,0 +1,15 @@
+name: wavsnap
+
+services:
+  wavsnap:
+    image: ${WAVSNAP_IMAGE:-ghcr.io/ramca-cyber/wavsnap:latest}
+    ports:
+      - "${WAVSNAP_PORT:-3000}:3000"
+    environment:
+      WAVSNAP_SERVER_TOKEN: ${WAVSNAP_SERVER_TOKEN:?Set WAVSNAP_SERVER_TOKEN in .env}
+    volumes:
+      - wavsnap-data:/data
+    restart: unless-stopped
+
+volumes:
+  wavsnap-data:

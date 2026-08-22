@@ -1,0 +1,4 @@
+* text=auto
+
+docker/compose.yaml text eol=lf
+docker/.env.example text eol=lf

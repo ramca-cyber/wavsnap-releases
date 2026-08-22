@@ -1,52 +1,71 @@
 # WavSnap Releases
 
-Official public distribution channel for WavSnap downloadable release artifacts.
+This repository is WavSnap's official distribution hub. It contains customer-facing installation instructions, deployment descriptors, release metadata, checksums, and downloadable installers. WavSnap application source remains in a separate private repository.
 
-WavSnap application and platform development happens in a separate private source repository. This repository intentionally contains no product source code; it exists only to publish official binaries and release metadata.
+## Install WavSnap
 
-## Current release target
+| Edition | Best for | Install or open | Updates |
+| --- | --- | --- | --- |
+| Hosted Web | Using WavSnap without managing infrastructure | [Open the current hosted release](https://wavsnap.vercel.app) | Updated centrally after release verification |
+| Windows Desktop | Local projects, native rendering, and offline workflows on Windows x86_64 | [Download the latest Windows release](https://github.com/ramca-cyber/wavsnap-releases/releases/latest) | Install the newer release over the existing application |
+| Self-hosted Docker | A persistent WavSnap workspace on your own Linux AMD64 server | [Follow the Docker guide](docker/README.md) | `docker compose pull` followed by `docker compose up -d` |
 
-The first supported desktop target is **Windows x86_64**.
+All editions use the portable `.wavsnap` project format. Each environment keeps projects and rendered outputs in storage appropriate to that environment.
 
-A normal desktop release may include:
+### Hosted Web
 
-- `WavSnap-<version>-x64-setup.exe` — primary Windows installer (NSIS)
-- `WavSnap-<version>-x64.msi` — optional MSI installer
-- `SHA256SUMS.txt` — release artifact checksums
-- `THIRD-PARTY-LICENSES.txt` — bundled third-party notices
-- updater metadata and signatures when automatic updates are enabled
+No installation is required. The release workflow promotes and verifies the exact application version before the release record becomes final. See [the Hosted Web guide](docs/hosted-web.md) for browser storage and project portability details.
 
-## Future artifacts
+### Windows Desktop
 
-This repository may also publish other standalone WavSnap binaries in the future, such as:
+The latest release page provides the supported Windows x86_64 installers:
 
-- macOS desktop installers
-- Linux desktop packages
-- standalone WavSnap CLI binaries
-- updater artifacts, signatures, checksums, and SBOMs
+- `WavSnap-<version>-x64-setup.exe` — normal interactive installer
+- `WavSnap-<version>-x64.msi` — MSI installer for managed environments
 
-Node packages are published through npm, container images through GHCR, and the hosted web application through its deployment platform; those artifacts do not belong in this repository.
+Read the release's signing notice before installing. Preview releases may be intentionally unsigned until Authenticode signing is enabled. See [the Windows guide](docs/windows-desktop.md).
 
-## Versioning
+### Self-hosted Docker
 
-Release tags follow semantic-style product versions such as:
+The official image is `ghcr.io/ramca-cyber/wavsnap`. A ready-to-use Compose definition and environment template are maintained in [`docker/`](docker/README.md). Exact semantic-version tags are immutable; `latest` follows the newest stable Docker release.
 
-- `v0.1.0`
-- `v0.1.1`
-- `v0.2.0`
+## One release record, multiple delivery channels
 
-Pre-release builds may use tags such as `v0.1.0-rc.1`.
+Every stable version has one canonical [GitHub release record](https://github.com/ramca-cyber/wavsnap-releases/releases). That record identifies the exact product version and source commit, then lists which editions were released:
 
-## Integrity
+- Hosted Web is delivered through WavSnap's production deployment.
+- Windows installers are attached directly to the GitHub release.
+- Docker images are delivered through GitHub Container Registry.
+- Future editions will be added to the same release record while retaining the delivery mechanism appropriate to that edition.
 
-Official release assets should be downloaded only from this repository's **Releases** section or from WavSnap-owned download pages that point to these assets.
+An edition can be omitted from a particular coordinated release. New coordinated releases attach `RELEASE-METADATA.json` to record exactly what was published and where to find it. See [the release contract](docs/release-contract.md).
 
-Published release assets include checksums so downloaded binaries can be verified independently.
+## Verify a download
 
-## Open-source components
+Release assets include `SHA256SUMS.txt`. After downloading an installer, compare its SHA-256 digest before running it.
 
-WavSnap includes third-party open-source components such as FFmpeg and whisper.cpp. Release-specific third-party notices are shipped with the application and/or attached to the corresponding release. Exact component versions and source references are maintained as part of WavSnap's release process.
+PowerShell:
+
+```powershell
+Get-FileHash .\WavSnap-<version>-x64-setup.exe -Algorithm SHA256
+```
+
+Linux or macOS:
+
+```sh
+sha256sum WavSnap-<version>-x64-setup.exe
+```
+
+Release-specific open-source notices are provided in `THIRD-PARTY-LICENSES.txt`.
+
+## Supported release policy
+
+- Stable versions use tags such as `v0.1.1`.
+- Exact installer versions and exact container tags are immutable.
+- `latest` means the newest stable release, not a development build.
+- The release notes are the authority for edition availability, signing status, storage migrations, and rollback limitations.
+- Development snapshots and source builds are not customer release channels.
 
 ## Support
 
-For WavSnap support or release issues, contact `hello@wavsnap.com`.
+For installation, release, or update help, contact `support@wavsnap.com`.
