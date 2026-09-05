@@ -2,11 +2,13 @@
 
 This repository is WavSnap's official distribution hub. It contains customer-facing installation instructions, deployment descriptors, release metadata, checksums, and downloadable installers. WavSnap application source remains in a separate private repository.
 
+For a guided comparison of every edition, visit [wavsnap.com/download](https://wavsnap.com/download).
+
 ## Install WavSnap
 
 | Edition | Best for | Install or open | Updates |
 | --- | --- | --- | --- |
-| Hosted Web | Using WavSnap without managing infrastructure | [Open the current hosted release](https://wavsnap.vercel.app) | Updated centrally after release verification |
+| Hosted Web | Using WavSnap without managing infrastructure | [Open the current hosted release](https://wavsnap.com/editor) | Updated centrally after release verification |
 | Windows Desktop | Local projects, native rendering, and offline workflows on Windows x86_64 | [Download the latest Windows release](https://github.com/ramca-cyber/wavsnap-releases/releases/latest) | Install the newer release over the existing application |
 | Self-hosted Docker | A persistent WavSnap workspace on your own Linux AMD64 server | [Follow the Docker guide](docker/README.md) | `docker compose pull` followed by `docker compose up -d` |
 
