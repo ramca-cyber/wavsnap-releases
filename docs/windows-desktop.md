@@ -13,7 +13,15 @@ Both packages are built from the same coordinated release commit. Their SHA-256 
 
 Read the release notes and attached signing notice before installation. Until Authenticode signing is configured, an explicitly authorized release may be labeled unsigned. Windows can display **Unknown publisher** or a Microsoft Defender SmartScreen warning for an unsigned build.
 
-Do not bypass a warning unless the installer came from this repository and its SHA-256 digest matches the release checksum.
+Verify the download source and SHA-256 checksum. Organization policy may block unsigned applications; do not change security policy to run WavSnap.
+
+## Included workflows
+
+The Windows app includes reusable export pipelines, a persistent export queue and the bundled `wavsnap.exe` command-line companion. Node and native rendering components are packaged with the app; no separate CLI or Node installation is required.
+
+Keep WavSnap open while app-owned queued jobs run. Closing the app, sleep or shutdown interrupts rendering; unfinished queued outputs can be retried after reopening. A CLI-owned worker can run without an editor window while its process stays running. Schedules and watch folders are not included.
+
+Help includes a two-track release-pack example. Save a pipeline, review audio bindings and source ranges, then reuse it with the next track. Back up portable projects, saved pipelines and source media separately.
 
 ## Update
 
